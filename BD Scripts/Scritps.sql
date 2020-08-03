@@ -57,4 +57,28 @@ select @valido;
 #cambiando nuestra zona horaria
 set GLOBAL time_zone = '-6:00';
 
+#Creando la tabla producto
+
+CREATE TABLE productos(
+idProducto int not null auto_increment,
+nombreProducto 	varchar(45) not null,
+cantidadExistencia decimal (8,2) not null default 0,
+existenciaMinima decimal(8,2) not null,
+idUsuarioRegistra int not null,
+fechaRegistro datetime null default current_timestamp(),
+primary key(idProducto),
+unique index `nombreProductor_UNIQUE` (nombreProducto asc) visible,
+constraint `FK_idUsuario`
+foreign key (idProducto)
+references usuario(idUsuario)
+on delete restrict on update cascade
+)
+
+#Creando una vista para los productos
+create view vwListadoProductos as
+select p.idProducto 'codigo',p.nombreProducto 'Nombre Producto', p.cantidadExistencia 'Existencia',
+p.existenciaMinima 'Existencia Minima'
+from productos p;
+
+
 

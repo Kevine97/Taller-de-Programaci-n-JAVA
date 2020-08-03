@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import sysInventario.AL.Productos.FormProductos;
 import sysInventario.Model.Usuario;
 
 /**
@@ -16,27 +17,27 @@ import sysInventario.Model.Usuario;
  * @author Ara-PC
  */
 public class MainForm extends javax.swing.JFrame {
-    
+
     private Usuario usuariologeado;
-    
+
     void setUsuarioLogeado(Usuario usuariologeado) {
         this.usuariologeado = usuariologeado;
     }
-    
+
     public MainForm() {
-        
+
         initComponents();
-        
+
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_shopping_cart_50px.png")).getImage());
-        
+
     }
-    
+
     public void setColor(JPanel panel) {
         panel.setBackground(new Color(108, 117, 125));
-        
+
     }
-    
+
     public void resetColor(JPanel panel) {
         panel.setBackground(new Color(63, 61, 86));
     }
@@ -182,6 +183,9 @@ public class MainForm extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 productosMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                productosMousePressed(evt);
             }
         });
 
@@ -382,7 +386,7 @@ public class MainForm extends javax.swing.JFrame {
         lateral.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 140, 20));
 
         Central.setBackground(new java.awt.Color(255, 255, 255));
-        Central.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Central.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -509,6 +513,17 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_salirSYSTEMMousePressed
+
+    private void productosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productosMousePressed
+        // TODO add your handling code here:
+        FormProductos f = new FormProductos();
+        Central.removeAll();
+        Central.add(f);
+        Central.revalidate();
+        Central.repaint();
+        f.cargarDaatos();
+                
+    }//GEN-LAST:event_productosMousePressed
 
     /**
      * @param args the command line arguments
