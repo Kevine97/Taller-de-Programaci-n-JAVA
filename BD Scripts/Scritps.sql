@@ -25,7 +25,7 @@ end $$
 
 #Creando un Usuario
 set @idUsuario = null;
-call spCrearUsuario('Kevin','Upoli123',@idUsuario);
+call spCrearUsuario('Jimmy','Upoli123',@idUsuario);
 select @idUsuario;
 
 
@@ -60,25 +60,35 @@ set GLOBAL time_zone = '-6:00';
 #Creando la tabla producto
 
 CREATE TABLE productos(
-idProducto int not null auto_increment,
-nombreProducto 	varchar(45) not null,
-cantidadExistencia decimal (8,2) not null default 0,
-existenciaMinima decimal(8,2) not null,
-idUsuarioRegistra int not null,
-fechaRegistro datetime null default current_timestamp(),
-primary key(idProducto),
-unique index `nombreProductor_UNIQUE` (nombreProducto asc) visible,
+`idProducto` int not null auto_increment,
+`nombreProducto` varchar(45) not null,
+`cantidadExistencia` decimal (8,2) not null default 0,
+`existenciaMinima` decimal(8,2) not null,
+`idUsuarioRegistra` int not null,
+`fechaRegistro` datetime null default current_timestamp(),
+primary key(`idProducto`),
+unique index `nombreProductor_UNIQUE` (`nombreProducto` asc) visible,
 constraint `FK_idUsuario`
-foreign key (idProducto)
-references usuario(idUsuario)
-on delete restrict on update cascade
-)
+foreign key (`idProducto`)
+references `usuario`(`idUsuario`)
+on delete restrict 
+on update cascade
+);
 
 #Creando una vista para los productos
-create view vwListadoProductos as
+/*create view vwListadoProductos as
 select p.idProducto 'codigo',p.nombreProducto 'Nombre Producto', p.cantidadExistencia 'Existencia',
-p.existenciaMinima 'Existencia Minima'
-from productos p;
+p.existenciaMinima 'Existencia Minima',
+p.idUsuarioRegistra 'Registrado por'
+from productos p;*/
+
+set FOREIGN_KEY_CHECKS=0
+
+create view vwListadoProductos as
+select p.idProducto 'codigo',p.nombreProducto 'Nombre Producto', p.cantidadExistencia 'Existencia', 
+p.existenciaMinima 'Existencia Minima', u.nombreUsuario 'Registrado por'
+from productos p
+inner join usuario u on u.idUsuario = p.idUsuarioRegistra
 
 
-
+select *from vwListadoProductos

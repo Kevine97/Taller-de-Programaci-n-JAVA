@@ -7,6 +7,9 @@ package sysInventario.AL.Productos;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import sysInventario.BL.ProductoBL;
 
 /**
@@ -17,6 +20,16 @@ public class FormProductos extends javax.swing.JPanel {
     
     public void cargarDaatos() {
         tblProductos.setModel(ProductoBL.obtenerProductos());
+    }
+    
+    public void filtarTabla(String criterio) {
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tblProductos.getModel());
+        tblProductos.setRowSorter(sorter);
+        if (criterio.trim().length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter(criterio, 1));
+        }
     }
 
     /**
@@ -146,6 +159,9 @@ public class FormProductos extends javax.swing.JPanel {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
         });
 
         jSeparator1.setBackground(new java.awt.Color(63, 61, 86));
@@ -208,8 +224,9 @@ public class FormProductos extends javax.swing.JPanel {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -242,6 +259,11 @@ public class FormProductos extends javax.swing.JPanel {
             txtBuscar.setText("");
         }
     }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        filtarTabla(txtBuscar.getText());
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
