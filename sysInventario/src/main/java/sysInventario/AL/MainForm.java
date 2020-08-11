@@ -24,6 +24,10 @@ public class MainForm extends javax.swing.JFrame {
         this.usuariologeado = usuariologeado;
     }
 
+    public Usuario getUsuarioLogeado() {
+        return this.usuariologeado;
+    }
+
     public MainForm() {
 
         initComponents();
@@ -522,7 +526,7 @@ public class MainForm extends javax.swing.JFrame {
         Central.revalidate();
         Central.repaint();
         f.cargarDaatos();
-                
+        f.setParent(this);
     }//GEN-LAST:event_productosMousePressed
 
     /**

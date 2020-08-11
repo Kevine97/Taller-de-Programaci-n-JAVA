@@ -143,11 +143,11 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 230, -1));
 
         jSeparator1.setBackground(new java.awt.Color(63, 61, 86));
-        jSeparator1.setForeground(new java.awt.Color(63, 61, 86));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 370, 10));
 
         jSeparator2.setBackground(new java.awt.Color(63, 61, 86));
-        jSeparator2.setForeground(new java.awt.Color(63, 61, 86));
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 370, 10));
 
         btnentrar.setBackground(new java.awt.Color(83, 109, 254));
@@ -254,14 +254,14 @@ public class LoginForm extends javax.swing.JFrame {
         if (user.equals(txtuser.getText())) {
             txtuser.setText("");
             jSeparator2.setBackground(new Color(83, 109, 254));
-            jSeparator2.setForeground(new Color(83, 109, 254));
+
             jSeparator1.setBackground(new Color(63, 61, 86));
-            jSeparator1.setForeground(new Color(63, 61, 86));
+
         } else {
             jSeparator2.setBackground(new Color(83, 109, 254));
-            jSeparator2.setForeground(new Color(83, 109, 254));
+
             jSeparator1.setBackground(new Color(63, 61, 86));
-            jSeparator1.setForeground(new Color(63, 61, 86));
+
             //lbl_informcion.setText("");
         }
     }//GEN-LAST:event_txtuserKeyPressed
@@ -272,14 +272,14 @@ public class LoginForm extends javax.swing.JFrame {
         if (user.equals(txtuser.getText())) {
             txtuser.setText("");
             jSeparator2.setBackground(new Color(83, 109, 254));
-            jSeparator2.setForeground(new Color(83, 109, 254));
+
             jSeparator1.setBackground(new Color(63, 61, 86));
-            jSeparator1.setForeground(new Color(63, 61, 86));
+
         } else {
             jSeparator2.setBackground(new Color(83, 109, 254));
-            jSeparator2.setForeground(new Color(83, 109, 254));
+
             jSeparator1.setBackground(new Color(63, 61, 86));
-            jSeparator1.setForeground(new Color(63, 61, 86));
+
             //lbl_informcion.setText("");
         }
     }//GEN-LAST:event_txtuserMousePressed
@@ -297,14 +297,13 @@ public class LoginForm extends javax.swing.JFrame {
         if (pass.equals(pas)) {
             txtpass.setText("");
             jSeparator1.setBackground(new Color(83, 109, 254));
-            jSeparator1.setForeground(new Color(83, 109, 254));
+
             jSeparator2.setBackground(new Color(63, 61, 86));
-            jSeparator2.setForeground(new Color(63, 61, 86));
+
         } else {
             jSeparator1.setBackground(new Color(83, 109, 254));
-            jSeparator1.setForeground(new Color(83, 109, 254));
+
             jSeparator2.setBackground(new Color(63, 61, 86));
-            jSeparator2.setForeground(new Color(63, 61, 86));
 
         }
     }//GEN-LAST:event_txtpassKeyPressed
@@ -322,14 +321,13 @@ public class LoginForm extends javax.swing.JFrame {
         if (pass.equals(pas)) {
             txtpass.setText("");
             jSeparator1.setBackground(new Color(83, 109, 254));
-            jSeparator1.setForeground(new Color(83, 109, 254));
+
             jSeparator2.setBackground(new Color(63, 61, 86));
-            jSeparator2.setForeground(new Color(63, 61, 86));
+
         } else {
             jSeparator1.setBackground(new Color(83, 109, 254));
-            jSeparator1.setForeground(new Color(83, 109, 254));
+
             jSeparator2.setBackground(new Color(63, 61, 86));
-            jSeparator2.setForeground(new Color(63, 61, 86));
 
         }
     }//GEN-LAST:event_txtpassMousePressed
@@ -363,6 +361,10 @@ public class LoginForm extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnentrarMousePressed
+
+    private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpassActionPerformed
 
     /**
      * @param args the command line arguments

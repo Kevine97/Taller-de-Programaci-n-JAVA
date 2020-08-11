@@ -69,8 +69,7 @@ CREATE TABLE productos(
 primary key(`idProducto`),
 unique index `nombreProductor_UNIQUE` (`nombreProducto` asc) visible,
 constraint `FK_idUsuario`
-foreign key (`idProducto`)
-references `usuario`(`idUsuario`)
+foreign key (`idUsuarioRegistra`) references `usuario`(`idUsuario`)
 on delete restrict 
 on update cascade
 );
@@ -90,5 +89,24 @@ p.existenciaMinima 'Existencia Minima', u.nombreUsuario 'Registrado por'
 from productos p
 inner join usuario u on u.idUsuario = p.idUsuarioRegistra
 
-
 select *from vwListadoProductos
+
+#Procedimiento almacenado para agregar un producto
+delimiter $$
+create procedure spRegistrarProducto(
+in nombreProducto varchar(45),
+in cantidadExitencia decimal (8,2),
+in exitenciaMinima decimal (8,2),
+in idUsuarioRegistra int
+)
+begin
+	insert into productos(nombreProducto, cantidadExistencia, existenciaMinima, idUsuarioRegistra)  values
+    (nombreProducto, cantidadExitencia, exitenciaMinima, idUsuarioRegistra);
+    
+    
+    select *from productos p where p.idProducto = last_insert_id();
+end $$
+DELIMITER ;
+
+select *from productos;
+call spRegistrarProducto('Maruchan',20,5,3);

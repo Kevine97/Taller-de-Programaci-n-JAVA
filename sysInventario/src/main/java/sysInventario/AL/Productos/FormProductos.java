@@ -7,9 +7,12 @@ package sysInventario.AL.Productos;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JFrame;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import sysInventario.AL.LoginForm;
+import sysInventario.AL.MainForm;
 import sysInventario.BL.ProductoBL;
 
 /**
@@ -17,11 +20,17 @@ import sysInventario.BL.ProductoBL;
  * @author Ara-PC
  */
 public class FormProductos extends javax.swing.JPanel {
-    
+
+    private MainForm parent;
+
+    public void setParent(MainForm parent) {
+        this.parent = parent;
+    }
+
     public void cargarDaatos() {
         tblProductos.setModel(ProductoBL.obtenerProductos());
     }
-    
+
     public void filtarTabla(String criterio) {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tblProductos.getModel());
         tblProductos.setRowSorter(sorter);
@@ -99,6 +108,9 @@ public class FormProductos extends javax.swing.JPanel {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnAgregarMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAgregarMousePressed(evt);
+            }
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -124,6 +136,14 @@ public class FormProductos extends javax.swing.JPanel {
         btnEditar.setBackground(new java.awt.Color(255, 255, 255));
         btnEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(63, 61, 86)));
         btnEditar.setPreferredSize(new java.awt.Dimension(145, 2));
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEditarMouseExited(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(63, 61, 86));
@@ -234,7 +254,7 @@ public class FormProductos extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         String buscar = "Buscar";
-        
+
         if (buscar.equals(txtBuscar.getText())) {
             txtBuscar.setText("");
         }
@@ -254,7 +274,7 @@ public class FormProductos extends javax.swing.JPanel {
     private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
         // TODO add your handling code here:
         String buscar = "Buscar";
-        
+
         if (buscar.equals(txtBuscar.getText())) {
             txtBuscar.setText("");
         }
@@ -264,6 +284,29 @@ public class FormProductos extends javax.swing.JPanel {
         // TODO add your handling code here:
         filtarTabla(txtBuscar.getText());
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
+        // TODO add your handling code here:
+        FormAgregarProducto f = new FormAgregarProducto(parent, true);
+        f.setUsuarioLogeado(parent.getUsuarioLogeado());
+        f.setFormProdcuto(this);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnAgregarMousePressed
+
+    private void btnEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseEntered
+        // TODO add your handling code here:
+        btnEditar.setBackground(new Color(63, 61, 86));
+        jLabel4.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnEditarMouseEntered
+
+    private void btnEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseExited
+        // TODO add your handling code here:
+
+        btnEditar.setBackground(Color.white);
+        jLabel4.setForeground(new Color(63, 61, 86));
+
+
+    }//GEN-LAST:event_btnEditarMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
