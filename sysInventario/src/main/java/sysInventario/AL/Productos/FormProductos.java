@@ -7,13 +7,15 @@ package sysInventario.AL.Productos;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JFrame;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import sysInventario.AL.LoginForm;
 import sysInventario.AL.MainForm;
 import sysInventario.BL.ProductoBL;
+import sysInventario.DAL.Dbconnection;
 
 /**
  *
@@ -22,6 +24,11 @@ import sysInventario.BL.ProductoBL;
 public class FormProductos extends javax.swing.JPanel {
 
     private MainForm parent;
+    public static String nombre;
+    public static Double actual;
+    public static Double minimo;
+    public static int fila;
+    public static String codigo;
 
     public void setParent(MainForm parent) {
         this.parent = parent;
@@ -37,7 +44,7 @@ public class FormProductos extends javax.swing.JPanel {
         if (criterio.trim().length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter(criterio, 1));
+            sorter.setRowFilter(RowFilter.regexFilter(criterio, 0, 1));
         }
     }
 
@@ -143,6 +150,9 @@ public class FormProductos extends javax.swing.JPanel {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnEditarMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnEditarMousePressed(evt);
+            }
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -208,6 +218,14 @@ public class FormProductos extends javax.swing.JPanel {
         tblProductos.setShowGrid(true);
         tblProductos.setShowVerticalLines(false);
         tblProductos.getTableHeader().setReorderingAllowed(false);
+        tblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductosMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblProductosMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProductos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -245,18 +263,19 @@ public class FormProductos extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(141, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         // TODO add your handling code here:
-
+        FormEditarProducto f = new FormEditarProducto(parent, true);
         String buscar = "Buscar";
 
         if (buscar.equals(txtBuscar.getText())) {
             txtBuscar.setText("");
+
         }
 
     }//GEN-LAST:event_txtBuscarKeyPressed
@@ -307,6 +326,45 @@ public class FormProductos extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_btnEditarMouseExited
+
+
+    private void btnEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMousePressed
+        // TODO add your handling code here:
+
+        FormEditarProducto f = new FormEditarProducto(parent, true);
+        f.setUsuarioLogeado(parent.getUsuarioLogeado());
+        f.setFormProdcuto(this);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnEditarMousePressed
+
+
+    private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
+        // TODO add your handling code here:
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            //Dbconnection con = new Dbconnection();
+            Connection conexion = Dbconnection.getConnection();
+            fila = tblProductos.getSelectedRow();
+            codigo = tblProductos.getValueAt(fila, 0).toString();
+            ps = conexion.prepareStatement("select nombreProducto, cantidadExistencia, existenciaMinima from productos where idProducto=?");
+            ps.setInt(1, Integer.parseInt(codigo));
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                nombre = rs.getString("nombreProducto");
+                actual = rs.getDouble("cantidadExistencia");
+                minimo = rs.getDouble("existenciaMinima");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_tblProductosMouseClicked
+
+    private void tblProductosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseReleased
+        // TODO add your handling code here:
+//        fila = -1;
+    }//GEN-LAST:event_tblProductosMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
